@@ -75,9 +75,9 @@ class Item(MethodView):
         return item
 
 
-@blp.route("/item")
+@blp.route("/all_items/<string:mis>")
 class ItemList(MethodView):
     @jwt_required()
     @blp.response(200, InOutSchema(many=True))
-    def get(self):
-        return InOutTime.find_all()
+    def get(self,mis):
+        return InOutTime.find_by_mis(mis=mis)
