@@ -11,10 +11,10 @@ class StudentModel(db.Model):
     department = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(80), nullable=False)
     # department_id = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
+    
+    entries = db.relationship('InOutTime', backref='students', lazy=True)
 
-    times = db.relationship('InOutTime', backref="student", lazy=True)
-    # Define a relationship to the Department table, using the department_id foreign key
-    # department = db.relationship('Department', backref='students', lazy=True)
+    # times = db.relationship('InOutTime', backref="student", lazy=True)
     
     
     def json(self):
@@ -24,7 +24,8 @@ class StudentModel(db.Model):
             'last_name': self.last_name,
             'email': self.email,
             'phone_number': self.phone_number,
-            'department': self.department
+            'department': self.department,
+            'entries': self.entries
         }
 
     @classmethod

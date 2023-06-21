@@ -8,6 +8,9 @@ class InOutTime(db.Model):
         db.String(), db.ForeignKey('students.mis'), nullable=False
     )
     
+    # time_in = db.Column(db.DateTime, nullable=True)
+    # time_out = db.Column(db.DateTime, nullable=False)
+
     time_out = db.Column(db.String(), nullable=False)
     date_out = db.Column(db.String(), nullable=False)
     

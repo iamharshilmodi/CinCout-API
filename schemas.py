@@ -12,7 +12,9 @@ class InOutSchema(Schema):
     reason = fields.Str(required=True)
     destination = fields.Str(required=True)
 
-    # student = fields.Nested('StudentSchema', exclude=('department', 'in_out_times'), dump_only=True)
+    # student = fields.Nested('StudentSchema', exclude=('passoword'), dump_only=True)
+    # student = fields.Nested('StudentSchema', exclude=('in_out_times',), dump_only=True)
+    # student = fields.Nested('StudentSchema', exclude=("password"), dump_only=True)
 
 class loginSchema(Schema):
     mis = fields.Str(required=True)
@@ -26,6 +28,8 @@ class StudentSchema(Schema):
     phone_number = fields.Str(required=True)
     department = fields.Str(required=True)
     password = fields.Str(required=True)
+    
+    entries = fields.Nested(InOutSchema, many=True, dump_only=True)
     
 class InOutTimeUpdateSchema(Schema):
     id = fields.Int(required=True)
