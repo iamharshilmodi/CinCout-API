@@ -4,7 +4,10 @@ This API is a part of hostel check-in/check-out full stack ios application where
 
 The API is developed using flask and the data is stored on the server side having one-to-many relationship from student to entries. 
 
-The demo video is given below.
+Demo video:
 
-https://github.com/iamharshilmodi/CinCout-API/assets/75446852/a6da83ce-04bb-48a5-ad5e-76c2feb15bd9
+https://github.com/iamharshilmodi/CinCout-API/assets/75446852/e1004052-5b1c-450c-b7ee-4e291a32905a
+
+
+
 
