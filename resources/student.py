@@ -47,13 +47,15 @@ class StudentLogin(MethodView):
     @blp.arguments(loginSchema)
     def post(self, student_data):
         user = StudentModel.find_by_mis(student_data["mis"])
-
+        # print(student_data["mis"])
+        # print(student_data["password"])
         if user and pbkdf2_sha256.verify(student_data["password"], user.password):
             access_token_duration = timedelta(days=31)
             refresh_token_duration = timedelta(days=93)
             access_token = create_access_token(identity=user.mis, fresh=True, expires_delta=access_token_duration)
             refresh_token = create_refresh_token(identity=user.mis, expires_delta=refresh_token_duration)
-            return {"access_token": access_token, "refresh_token": refresh_token}, 200
+            # return {"access_token": access_token, "refresh_token": refresh_token}, 200
+            return {"access_token": access_token, "refresh_token": refresh_token, "target": user.target}, 200
 
         abort(401, message="Invalid credentials.")
     
@@ -93,19 +95,19 @@ class StudentLogout(MethodView):
 class User(MethodView):
 
     @blp.response(200, StudentSchema)
-    @jwt_required()
+    # @jwt_required()
     def get(self, mis):
         student = StudentModel.find_by_mis(mis)
         if not student:
             abort(404, message="Student not found.")
         return student.json()
 
-    @jwt_required(fresh=True)
+    # @jwt_required(fresh=True)
     def delete(self, mis):
         
-        jwt = get_jwt()
-        if not jwt.get("is_admin"):
-            abort(401, message="Admin privilege required.")
+        # jwt = get_jwt()
+        # if not jwt.get("is_admin"):
+        #     abort(401, message="Admin privilege required.")
         
         student = StudentModel.find_by_mis(mis)
         if not student:

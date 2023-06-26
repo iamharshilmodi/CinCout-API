@@ -28,11 +28,12 @@ class StudentSchema(Schema):
     phone_number = fields.Str(required=True)
     department = fields.Str(required=True)
     password = fields.Str(required=True)
+    target = fields.Str(required=True)
     
     entries = fields.Nested(InOutSchema, many=True, dump_only=True)
     
 class InOutTimeUpdateSchema(Schema):
-    id = fields.Int(required=True)
+    # id = fields.Int(required=True)
     mis = fields.Str(required=True)
     time_in = fields.Str(required=True)
     date_in = fields.Str(required=True)

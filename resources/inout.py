@@ -8,12 +8,14 @@ from schemas import InOutSchema, InOutTimeUpdateSchema
 
 from db import db 
 
+from flask import Flask, jsonify
+
 blp = Blueprint("Times", "times", description="Operations on in-out Times")
 
 
 @blp.route("/item/<string:mis>")
 class Item(MethodView):
-    @jwt_required()
+    # @jwt_required()
     @blp.response(200, InOutSchema)
     def get(self, mis):
         item = InOutTime.find_latest(mis)
@@ -21,7 +23,7 @@ class Item(MethodView):
             return item
         abort(404, message="Item not found")
 
-    @jwt_required()
+    # @jwt_required()
     @blp.arguments(InOutSchema)
     @blp.response(201, InOutSchema)
     def post(self, item_data, mis):
@@ -39,7 +41,7 @@ class Item(MethodView):
 
         return item
 
-    @jwt_required()
+    # @jwt_required()
     def delete(self, mis):
         # jwt = get_jwt()
         # if not jwt["is_admin"]:
@@ -65,7 +67,7 @@ class Item(MethodView):
         else:
             abort(400, message="Item not found.")
 
-        print(item.time_in)
+        # print(item.time_in)
         
         try:
             item.update_to_db()
@@ -77,7 +79,7 @@ class Item(MethodView):
 
 @blp.route("/all_items/<string:mis>")
 class ItemList(MethodView):
-    @jwt_required()
+    # @jwt_required()
     @blp.response(200, InOutSchema(many=True))
     def get(self,mis):
         return InOutTime.find_by_mis(mis=mis)

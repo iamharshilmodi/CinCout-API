@@ -4,12 +4,13 @@ class StudentModel(db.Model):
     __tablename__ = 'students'
     
     mis = db.Column(db.String(), primary_key=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(50), unique=True, nullable=False)
-    phone_number = db.Column(db.String(20), unique=True, nullable=False)
-    department = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    first_name = db.Column(db.String(), nullable=False)
+    last_name = db.Column(db.String(), nullable=False)
+    email = db.Column(db.String(), unique=True, nullable=False)
+    phone_number = db.Column(db.String(), unique=True, nullable=False)
+    department = db.Column(db.String(), nullable=False)
+    password = db.Column(db.String(), nullable=False)
+    target = db.Column(db.String(), nullable=False)
     # department_id = db.Column(db.Integer, db.ForeignKey('departments.department_id'), nullable=False)
     
     entries = db.relationship('InOutTime', backref='students', lazy=True)
@@ -25,7 +26,7 @@ class StudentModel(db.Model):
             'email': self.email,
             'phone_number': self.phone_number,
             'department': self.department,
-            'entries': self.entries
+            # 'entries': self.entries
         }
 
     @classmethod

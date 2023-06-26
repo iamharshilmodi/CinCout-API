@@ -29,20 +29,22 @@ class InOutTime(db.Model):
             "id": self.in_out_id,
             "mis": self.mis,
             
-            "time_out": self.time_out,
-            "date_out": self.date_out,
+            # "time_out": self.time_out,
+            # "date_out": self.date_out,
             
-            "time_in": self.time_in,
-            "date_in": self.date_in,
+            # "time_in": self.time_in,
+            # "date_in": self.date_in,
             
-            "reason": self.reason,
-            "destination": self.destination
+            # "reason": self.reason,
+            # "destination": self.destination
 
         }
 
     @classmethod
     def find_by_mis(cls, mis):
-        return cls.query.filter_by(mis=mis)
+        obj = cls.query.filter_by(mis=mis).order_by(InOutTime.in_out_id.desc()).limit(10)
+        print(type(obj))
+        return obj
     
     @classmethod
     def find_by_id(cls, gid):
@@ -58,7 +60,7 @@ class InOutTime(db.Model):
 
     @classmethod
     def find_all(cls):
-        return cls.query.all()
+        return cls.query.limit(1).all()
 
     # @classmethod
     def save_to_db(self):

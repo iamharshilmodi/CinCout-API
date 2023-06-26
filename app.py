@@ -9,7 +9,7 @@ from resources.student import blp as StudentBlueprint
 from resources.inout import blp as InOutBlueprint
 # from resources.store import blp as StoreBlueprint
 # from resources.tag import blp as TagBlueprint
-
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config["API_TITLE"] = "InOut REST API"
@@ -22,6 +22,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
 db.init_app(app)
+migrate = Migrate(app, db)
 api = Api(app)
 
 """
@@ -109,9 +110,9 @@ def revoked_token_callback(jwt_header, jwt_payload):
 # def create_tables():
 #     db.create_all()
 
-with app.app_context():
-    # import models  # noqa: F401
-    db.create_all()
+# with app.app_context():
+#     # import models  # noqa: F401
+#     db.create_all()
 
     
 
